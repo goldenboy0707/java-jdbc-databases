@@ -36,6 +36,7 @@ public class UpdateOrderDao {
         ) {
             numberResults = ps.executeUpdate();
 
+
         } catch (SQLException ex) {
             ExceptionHandler.handleException(ex);
         }
