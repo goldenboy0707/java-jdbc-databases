@@ -53,8 +53,9 @@ public class GetOrderDao {
      * @throws SQLException In case of an error
      */
     private PreparedStatement createPreparedStatement(Connection con, long orderId) throws SQLException {
-        PreparedStatement preparedStatement = null;
-        return preparedStatement;
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setLong(1, orderId);
+        return ps;
     }
 
     /**
@@ -64,7 +65,6 @@ public class GetOrderDao {
      * @throws SQLException In case of an error
      */
     private ResultSet createResultSet(PreparedStatement ps) throws SQLException {
-        ResultSet resultSet = null;
-        return resultSet;
+        return ps.executeQuery();
     }
 }
