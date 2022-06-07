@@ -62,11 +62,11 @@ public class InsertOrderDao {
                                 }
                             }
                         }
-con.commit();
+                    con.commit();
                     }
                 }
             } catch(SQLException ex) {
-con.rollback();
+                        con.rollback();
                 ExceptionHandler.handleException(ex);
             }
         } catch (SQLException ex) {
