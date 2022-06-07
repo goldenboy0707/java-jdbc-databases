@@ -38,7 +38,7 @@ public class TotalOrderDao {
             try (ResultSet resu = cs.getResultSet()){
 
 
-                if(!resu.next() && resu != null){
+                if(resu.next() && resu != null){
                     result=resu.getBigDecimal(1);
                 }
 
