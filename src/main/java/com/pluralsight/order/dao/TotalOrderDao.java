@@ -33,13 +33,13 @@ public class TotalOrderDao {
         try (Connection con = database.getConnection();
              CallableStatement cs = createCallableStatement(con, paramsDto.getCustomerId())
         ) {
-        cs.executeUpdate();
+        cs.execute();
         //////////////////////////////
             try (ResultSet resu = cs.getResultSet()){
 
 
-                if(!resu.next()){
-
+                if(!resu.next() && resu != null){
+                    result=resu.getBigDecimal(1);
                 }
 
             }catch(SQLException ex){
