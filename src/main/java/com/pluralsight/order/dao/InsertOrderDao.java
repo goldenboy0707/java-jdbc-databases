@@ -41,28 +41,32 @@ public class InsertOrderDao {
         ) {
 
             con.setAutoCommit(false);
-            ps.execute();
+            ps.executeUpdate();
 
             try (ResultSet result = ps.getGeneratedKeys()) {
                 if(result != null) {
                     if(!result.next()){
-
+                        con.rollback();
                     } else {
 
-
+                        orderId = result.getLong(1);
                         for (OrderDetailDto orderDetailDto : orderDto.getOrderDetail()) {
                             orderDetailDto.setOrderId(orderId);
 
                             try (PreparedStatement detailsPS =
                                          createOrderDetailPreparedStatement(con, orderDetailDto)) {
-                                detailsPS.execute();
+                               int count = detailsPS.executeUpdate();
+                                if (count!=1){
+                                    con.rollback();
+                                    orderId=-1;
+                                }
                             }
                         }
-
+con.commit();
                     }
                 }
             } catch(SQLException ex) {
-
+con.rollback();
                 ExceptionHandler.handleException(ex);
             }
         } catch (SQLException ex) {
