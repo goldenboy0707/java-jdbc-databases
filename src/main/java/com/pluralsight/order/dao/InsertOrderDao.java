@@ -4,6 +4,7 @@ import com.pluralsight.order.dto.OrderDto;
 import com.pluralsight.order.dto.OrderDetailDto;
 import com.pluralsight.order.util.Database;
 import com.pluralsight.order.util.ExceptionHandler;
+import com.pluralsight.order.util.OrderStatus;
 
 import java.sql.*;
 
@@ -89,7 +90,7 @@ public class InsertOrderDao {
         PreparedStatement ps = con.prepareStatement(sqlOrder, Statement.RETURN_GENERATED_KEYS);
         ps.setLong(1, orderDto.getCustomerId());
         ps.setTimestamp(2, (Timestamp) orderDto.getDate());
-        ps.setString(3, orderDto.getStatus());
+        ps.setString(3, OrderStatus.CREATED.getStatus());
         return ps;
     }
 
